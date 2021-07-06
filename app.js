@@ -35,17 +35,17 @@ addNewUser();
 const { EventEmitter } = require('events');
 
 const emitter = new EventEmitter();
-emitter.setMaxListeners(2);
+//emitter.setMaxListeners(2);
 
 const topic = "LevelCompleted!";
-const playSound = (type) => {
+const playVictorySound = (type) => {
 	console.log("Congratulations! You completed the level: ", type);
 }
 
-emitter.on(topic, playSound);
+emitter.on(topic, playVictorySound);
 
-let selectCharacter = (type) => {
-	if (type === "") {
+const selectCharacter = (type) => {
+	if(type === "") {
 		console.error("No character selected");
 	}
 	else {
@@ -56,10 +56,26 @@ let selectCharacter = (type) => {
 	}
 };
 
-selectCharacter = ("Genji");
+selectCharacter("Genji");
+
 
 const pickupHealth = () => {
 	console.log("Picked up health");
 };
 
 emitter.addListener(topic, pickupHealth);
+
+const openDoorInGameWorld = () => {
+	console.log("This door has been opened");
+}
+
+
+emitter.addListener(topic, openDoorInGameWorld);
+
+openDoorInGameWorld()
+
+pickupHealth()
+
+
+
+console.log("Listeners: ", emitter.listeners(topic));
